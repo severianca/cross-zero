@@ -1,5 +1,5 @@
-define(['js/Base/Component.js', 'js/Page/Header.js', 'js/Page/Game.js'],
-function(Component, Header, Game) {
+define(['js/Base/Component.js', 'js/Page/Header.js', 'js/Page/GameBlock.js'],
+function(Component, Header, GameBlock) {
     /**
      * класс страницы
      */
@@ -8,7 +8,7 @@ function(Component, Header, Game) {
             return `
                 <div class="wraper">
                     ${this.childrens.create(Header)}
-                    ${this.childrens.create(Game)}
+                    ${this.childrens.create(GameBlock)}
                 </div>`;
         }
     }

@@ -1,6 +1,6 @@
 define(['js/Base/Component.js', 'js/Page/Item.js'], 
 function(Component, Item){
-    class Content extends Component {
+    class GameBlock extends Component {
         render() {
             var items = new Array();
             var a=0;
@@ -13,11 +13,11 @@ function(Component, Item){
             return `
             <div class="content">
                 <div class="content_game">
-                    <div class="content_hint" >Нажмите кнопку "старт" для начала игры</div>
+                    <div class="content_hint" id="hint">Нажмите кнопку СТАРТ для начала игры</div>
                     <div class="game_field">
                         ${items.map((item) => this.childrens.create(Item, {item})).join('\n')}
                     </div>
-                    <button class="button-game-control">старт</button>
+                    <button class="button-game-control" id="button-game-control">СТАРТ</button>
                 </div>
                 <div class="content_table">
 
@@ -25,5 +25,5 @@ function(Component, Item){
             </div>`;
         }
     }
-    return Content;
+    return GameBlock;
 });
