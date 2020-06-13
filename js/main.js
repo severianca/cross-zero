@@ -12,8 +12,6 @@ function(Component, Page, Game) {
 
     let hint = document.getElementById("hint");
 
-    let gameStart = false;
-
     let buttonGameControl = document.getElementById('button-game-control');
     buttonGameControl.addEventListener('click', clickOnButtonGameControl);
 
@@ -25,12 +23,22 @@ function(Component, Page, Game) {
      * Обработчик клика на кнопку
      */
     function clickOnButtonGameControl() {
-            game.start();
-            buttonGameControl.innerHTML = "НАЧАТЬ ЗАНОВО";
-            hint.innerHTML = "Погнали";
-            itemsTableGame.forEach(item => {
-                item.addEventListener('click', clickOnItemTableGame);
-            });
+        buttonGameControl.innerHTML = "НАЧАТЬ ЗАНОВО";
+        hint.innerHTML = "Погнали";
+        itemsTableGame.forEach(item => {
+            item.addEventListener('click', clickOnItemTableGame);
+        });
+        game.zeroing();
+        if (game.getFirstMovePlayer()){
+            game.setFirstMovePlayer(false);
+        }
+        else{
+            game.setFirstMovePlayer(true);
+            game.actionAI();
+            if (checkGameOver(2)){
+                tableGameIsNotActivForPlayer();
+            }
+        }
     }
 
     /**
@@ -39,6 +47,44 @@ function(Component, Page, Game) {
     function clickOnItemTableGame() {
         // определим на какой элемент поля кликнули
         let idItemAIClick = event.currentTarget.id;
-        game.actionPlayer(idItemAIClick);
+        if (game.actionPlayer(idItemAIClick)){
+            if (checkGameOver(1)){
+                tableGameIsNotActivForPlayer();
+            }
+            else {
+                game.actionAI();
+                if (checkGameOver(2)){
+                    tableGameIsNotActivForPlayer();
+                }
+            }
+        }
     }
+
+    /**
+    * Дезактивация игрового поля для клика пользователем
+    */
+    function tableGameIsNotActivForPlayer() {
+    itemsTableGame.forEach(item => {
+        item.removeEventListener('click', clickOnItemTableGame);
+        });
+    }
+
+    function checkGameOver(id){
+        if (game.checkForVictory(id)){
+            if (id == 2){
+                hint.innerHTML = "Проигрыш";
+                return true;
+            }
+            else {
+                hint.innerHTML = "Победа";
+                return true;
+            }
+        }
+        if (game.checkForEndOfGame()){
+            hint.innerHTML = "Ничья";
+            return true;
+        }
+        return false;
+    }
+
 });

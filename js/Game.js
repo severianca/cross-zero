@@ -1,14 +1,13 @@
-define(['js/Base/Component.js'],
-function(Component) {
+define([],
+function() {
 
-    class Game extends Component {
+    class Game {
 
         firstMovePlayer = true;
         hint = document.getElementById("hint");
         countFreeItem = 9;
 
         constructor(){
-            super();
             this.tableGame = [];
             for (let i=0; i<3; i++){
                 this.tableGame[i] = [];
@@ -18,20 +17,12 @@ function(Component) {
             }
         }
 
-        /**
-        * Процесс игры
-        */
-        start() {
-            this.zeroing();
-            //если первый ход игрока
-            if (this.firstMovePlayer){
-                //то в следюущий раз первым ходит ИИ
-                this.firstMovePlayer = false;
-            }
-            else {
-                //то в следюущий раз первым ходит игрок
-                this.actionAI();
-            }
+        getFirstMovePlayer(){
+            return this.firstMovePlayer;
+        }
+
+        setFirstMovePlayer(bool){
+            this.firstMovePlayer = bool;
         }
 
         /**
@@ -43,7 +34,15 @@ function(Component) {
                     this.tableGame[i][j] = 0;
                 }
             }
+            let imgs = document.getElementsByName('img');
+            let length = imgs.length;
+            for (let i=0; i<length; i++){
+                imgs[0].remove();
+            }
+
+            this.countFreeItem = 9;
         }
+
         /**
         * ИИ делает ход
         */
@@ -53,14 +52,7 @@ function(Component) {
                     if (this.tableGame[i][j] ==0){
                         this.tableGame[i][j] = 2;
                         this.countFreeItem--;
-                        if (this.checkForVictory(2)){
-                            this.hint.innerHTML = "Победа ИИ";
-                            return;
-                        }
-                        if (this.checkForEndOfGame()){
-                            this.hint.innerHTML = "Ничья";
-                            return;
-                        }
+                        this.addImageZero(i+"_"+j);
                         return;
                     }
                 }
@@ -69,6 +61,7 @@ function(Component) {
 
         /**
         * Игрок делает ход
+        * возвращает true если ход корректный
         * @param {String} idItemPlayerClick id поля на которое кликнул пользователь, вида 0_0
         */
         actionPlayer(idItemPlayerClick) {
@@ -77,26 +70,33 @@ function(Component) {
             if (this.tableGame[i][j] == 0){
                 this.tableGame[i][j] = 1;
                 this.countFreeItem--;
-                if (this.checkForVictory(1)){
-                    this.hint.innerHTML = "Победа";
-                    return;
-                }
-                if (this.checkForEndOfGame()){
-                    this.hint.innerHTML = "Ничья";
-                    return;
-                }
-                this.actionAI();
+                this.addImageCross(idItemPlayerClick);
+                return true;
+            }
+            else {
+                return false;
             }
         }
 
-        // /**
-        // * Дезактивация игрового поля для клика пользователем
-        // */
-        // tableGameIsNotActivForPlayer(){
-        // this.itemsTableGame.forEach(item => {
-        //     item.removeEventListener('click', this.clickOnItemTableGame);
-        //     });
-        // }
+        addImageCross(idItemClick){
+            let img = new Image();
+            img.src = "img/cross.png";
+            img.height = 48;
+            img.width = 48;
+            img.name = "img";
+            let itemPlayerClick = document.getElementById(idItemClick);
+            itemPlayerClick.appendChild(img);
+        }
+
+        addImageZero(idItemClick){
+            let img = new Image();
+            img.src = "img/zero.png";
+            img.height = 48;
+            img.width = 48;
+            img.name = "img";
+            let itemPlayerClick = document.getElementById(idItemClick);
+            itemPlayerClick.appendChild(img);
+        }
 
         checkForVictory(a){
             if ((this.tableGame[0][0] == a && this.tableGame[0][1] == a && this.tableGame[0][2] == a) ||

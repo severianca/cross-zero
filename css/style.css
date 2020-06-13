@@ -53,8 +53,8 @@ body{
 /*поле для игры в крестики нолики*/
 .game_field{
     display: grid;
-    grid-template-columns: repeat(3, 40px);
-    grid-template-rows: repeat(3, 40px);
+    grid-template-columns: repeat(3, 50px);
+    grid-template-rows: repeat(3, 50px);
     margin: 30px;
     grid-gap: 1px;
     box-shadow: 0px 0px 0px 2px rgb(255, 145, 0);
