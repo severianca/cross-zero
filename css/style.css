@@ -102,3 +102,12 @@ body{
     width: 50%;
     text-align: center;
 }
+.statistics{
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+.result{
+    display: flex;
+    flex-direction: row;
+}

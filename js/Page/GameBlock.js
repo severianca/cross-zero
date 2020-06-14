@@ -27,6 +27,17 @@ function(Component, Item){
                             <td class="td">игрок</td>
                         </tr>
                     </table>
+                    <div class="statistics">
+                        <div>Итоговый счет:</div>
+                        <div class="result">
+                            <div id="wins-AI">0</div>
+                            <div> побед ИИ</div>
+                        </div>
+                        <div class="result">
+                            <div id="wins-player">0</div>
+                            <div> побед игрока</div>
+                        </div>
+                    </div>
                 </div>
             </div>`;
         }

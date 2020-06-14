@@ -17,6 +17,9 @@ function(Component, Page, Game) {
 
     let itemsTableGame = document.getElementsByName('item');
 
+    let winsAI = document.getElementById('wins-AI');
+    let winsPlayer = document.getElementById('wins-player');
+
     let game = new Game();
 
     /**
@@ -79,11 +82,17 @@ function(Component, Page, Game) {
             if (id == 2){
                 hint.innerHTML = "Проигрыш";
                 addResultGameInTable("1_0");
+                let countWinsOfAI = winsAI.innerText;
+                countWinsOfAI++;
+                winsAI.innerHTML = countWinsOfAI;
                 return true;
             }
             else {
                 hint.innerHTML = "Победа";
                 addResultGameInTable("0_1");
+                let countWinsOfPlayer = winsPlayer.innerText;
+                countWinsOfPlayer++;
+                winsPlayer.innerHTML = countWinsOfPlayer;
                 return true;
             }
         }
