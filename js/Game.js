@@ -4,7 +4,6 @@ function() {
     class Game {
 
         firstMovePlayer = true;
-        hint = document.getElementById("hint");
         countFreeItem = 9;
 
         constructor(){
@@ -98,15 +97,20 @@ function() {
             itemPlayerClick.appendChild(img);
         }
 
-        checkForVictory(a){
-            if ((this.tableGame[0][0] == a && this.tableGame[0][1] == a && this.tableGame[0][2] == a) ||
-                (this.tableGame[1][0] == a && this.tableGame[1][1] == a && this.tableGame[2][2] == a) ||
-                (this.tableGame[2][0] == a && this.tableGame[2][1] == a && this.tableGame[2][2] == a) ||
-                (this.tableGame[0][0] == a && this.tableGame[1][1] == a && this.tableGame[2][2] == a) ||
-                (this.tableGame[0][2] == a && this.tableGame[1][1] == a && this.tableGame[2][0] == a) ||
-                (this.tableGame[0][0] == a && this.tableGame[1][0] == a && this.tableGame[2][0] == a) ||
-                (this.tableGame[0][1] == a && this.tableGame[1][1] == a && this.tableGame[2][1] == a) ||
-                (this.tableGame[0][2] == a && this.tableGame[1][2] == a && this.tableGame[2][2] == a)){
+        /**
+        * Проверка игры на победу enemy
+        * Возвращает true если игра окончена
+        * @param {String} enemy принимает число 1 или 2, где 1 - игрок, 2 - ИИ
+        */
+        checkForVictory(enemy){
+            if ((this.tableGame[0][0] == enemy && this.tableGame[0][1] == enemy && this.tableGame[0][2] == enemy) ||
+                (this.tableGame[1][0] == enemy && this.tableGame[1][1] == enemy && this.tableGame[2][2] == enemy) ||
+                (this.tableGame[2][0] == enemy && this.tableGame[2][1] == enemy && this.tableGame[2][2] == enemy) ||
+                (this.tableGame[0][0] == enemy && this.tableGame[1][1] == enemy && this.tableGame[2][2] == enemy) ||
+                (this.tableGame[0][2] == enemy && this.tableGame[1][1] == enemy && this.tableGame[2][0] == enemy) ||
+                (this.tableGame[0][0] == enemy && this.tableGame[1][0] == enemy && this.tableGame[2][0] == enemy) ||
+                (this.tableGame[0][1] == enemy && this.tableGame[1][1] == enemy && this.tableGame[2][1] == enemy) ||
+                (this.tableGame[0][2] == enemy && this.tableGame[1][2] == enemy && this.tableGame[2][2] == enemy)){
 
                 return true;
             }

@@ -69,22 +69,47 @@ function(Component, Page, Game) {
         });
     }
 
+    /**
+    * Проверка игры на её окончание
+    * Возвращает true если игра окончена
+    * @param {String} id 1-проверка победы игрока, 2-проверка победы ИИ
+    */
     function checkGameOver(id){
         if (game.checkForVictory(id)){
             if (id == 2){
                 hint.innerHTML = "Проигрыш";
+                addResultGameInTable("1_0");
                 return true;
             }
             else {
                 hint.innerHTML = "Победа";
+                addResultGameInTable("0_1");
                 return true;
             }
         }
         if (game.checkForEndOfGame()){
             hint.innerHTML = "Ничья";
+            addResultGameInTable("0_0");
             return true;
         }
         return false;
     }
 
+    /**
+    * Добавляет результат игры в таблицу
+    * @param {String} result результат вида 0_0, где первым нулем указывается результат ИИ,а вторым игрока 
+    */
+    function addResultGameInTable(result){
+        let tbody = document.getElementById("table");
+        let row = document.createElement("TR");
+        let td1 = document.createElement("TD");
+        td1.className = "td";
+        td1.appendChild(document.createTextNode(result[0]));
+        let td2 = document.createElement("TD");
+        td2.className = "td";
+        td2.appendChild (document.createTextNode(result[2]));
+        row.appendChild(td1);
+        row.appendChild(td2);
+        tbody.appendChild(row);
+    }
 });

@@ -14,7 +14,7 @@ body{
     background-color: rgb(247, 230, 208);
     min-width: 620px;
     width: 80%;
-    height: 100vh;
+    min-height: 100vh;
     position: relative;
     border-left: 2px solid rgb(255, 145, 0);
     border-right: 2px solid rgb(255, 145, 0);
@@ -35,13 +35,13 @@ body{
 .content{
     display: flex;
     flex-direction: row;
-    align-items: center;
 }
 .content_game{
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 20px;
+    height: 335px;
     flex: 1;
 }
 /*подсказки для пользователя*/
@@ -80,5 +80,25 @@ body{
     color: rgb(247, 230, 208);
 }
 .content_table{
+    display: flex;
+    flex-direction: column;
+    align-items: top;
+    margin: 20px;
+    padding: 10px;
     flex: 1;
+}
+.table-wins{
+    width: 300px; 
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.tr{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 50%;
+    text-align: center;
 }

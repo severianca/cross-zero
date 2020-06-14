@@ -20,7 +20,13 @@ function(Component, Item){
                     <button class="button-game-control" id="button-game-control">СТАРТ</button>
                 </div>
                 <div class="content_table">
-
+                    <table class="table-wins" id="table">
+                        <caption>Список побед</caption>
+                        <tr class="tr">
+                            <td class="td">ИИ</td>
+                            <td class="td">игрок</td>
+                        </tr>
+                    </table>
                 </div>
             </div>`;
         }
