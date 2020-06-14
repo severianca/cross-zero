@@ -46,16 +46,19 @@ function() {
         * ИИ делает ход
         */
         actionAI(){
-            for (let i=0; i<3; i++){
-                for (let j=0; j<3; j++){
-                    if (this.tableGame[i][j] ==0){
-                        this.tableGame[i][j] = 2;
-                        this.countFreeItem--;
-                        this.addImageZero(i+"_"+j);
-                        return;
-                    }
-                }
+            let i = this.getRandomInt(0,2);
+            let j = this.getRandomInt(0,2);
+            while (this.tableGame[i][j] == 1 || this.tableGame[i][j] == 2){
+                i = this.getRandomInt(0,2);
+                j = this.getRandomInt(0,2);
             }
+            this.tableGame[i][j] = 2;
+            this.countFreeItem--;
+            this.addImageZero(i+"_"+j);
+        }
+
+        getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
         /**
@@ -104,7 +107,7 @@ function() {
         */
         checkForVictory(enemy){
             if ((this.tableGame[0][0] == enemy && this.tableGame[0][1] == enemy && this.tableGame[0][2] == enemy) ||
-                (this.tableGame[1][0] == enemy && this.tableGame[1][1] == enemy && this.tableGame[2][2] == enemy) ||
+                (this.tableGame[1][0] == enemy && this.tableGame[1][1] == enemy && this.tableGame[1][2] == enemy) ||
                 (this.tableGame[2][0] == enemy && this.tableGame[2][1] == enemy && this.tableGame[2][2] == enemy) ||
                 (this.tableGame[0][0] == enemy && this.tableGame[1][1] == enemy && this.tableGame[2][2] == enemy) ||
                 (this.tableGame[0][2] == enemy && this.tableGame[1][1] == enemy && this.tableGame[2][0] == enemy) ||
